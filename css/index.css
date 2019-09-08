@@ -1,0 +1,62 @@
+.content {
+    width: 640px;
+    height: 640px;
+    margin: 100px auto;
+    position: relative;
+}
+.btn {
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, .3);
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    z-index: 2;
+}
+.btn button {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    background: none;
+    border: none;
+}
+.startBtn button{
+    background-image: url('../image/startGame.png');
+    background-repeat: no-repeat;
+    width: 200px;
+    height: 80px;
+    background-size: 100% 100%;
+    margin-left: -100px;
+    margin-top: -40px;
+}
+.pauseBtn {
+    display: none;
+}
+.pauseBtn button {
+    background-image: url('../image/start.png');
+    background-repeat: no-repeat;
+    width: 200px;
+    height: 80px;
+    background-size: 100% 100%;
+    margin-left: -100px;
+    margin-top: -40px;
+}
+/* snakeWrap  */
+#snakeWrap {
+    width: 600px;
+    height: 600px;
+    background: #225675;
+    border: 20px solid #7dd9ff;
+}
+.snakeHead{
+	background-image: url(../image/snake.png);
+	background-size: cover;
+}
+.snakeBody{
+	background-color: #9ddbb1;
+	border-radius: 50%;
+}
+.food{
+	background-image: url(../image/food.png);
+	background-size: cover; 
+}
