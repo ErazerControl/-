@@ -47,6 +47,7 @@
     height: 600px;
     background: #225675;
     border: 20px solid #7dd9ff;
+    position: relative;
 }
 .snakeHead{
 	background-image: url(../image/snake.png);

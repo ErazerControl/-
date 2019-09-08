@@ -67,6 +67,7 @@ function createFood () {
         }
     }
     food = new Square(x,y,'food')
+    food.create();
 }
 function Snake () {
     this.head = null;
@@ -76,8 +77,11 @@ function Snake () {
 }
 Snake.prototype.init = function () {
     var snakeHead = new Square(3,0,'snakeHead');
+    snakeHead.create();
     var snakeBody1 = new Square(2,0,'snakeBody');
     var snakeBody2 = new Square(1,0,'snakeBody');
+    snakeBody1.create();
+    snakeBody2.create();
     snakeHead.last = null;
     snakeHead.next = snakeBody1;
     snakeBody1.last = snakeHead;
@@ -93,7 +97,7 @@ Snake.prototype.getNextPos =  function () {
     var nextPosY = Math.round(this.head.y/sh) + directionNum[this.direction]["y"];
     //1.normal move
     console.log(food);
-    if(nextPosX == food.x && nextPosY == food.y) {
+    if(nextPosX == Math.round(food.x/sw) && nextPosY == Math.round(food.y/sh)) {
         this.eat();
         createFood();
     }
@@ -120,38 +124,38 @@ Snake.prototype.getNextPos =  function () {
     //3.die
 }
 Snake.prototype.die = function () {
-    console.log('死了')
+    game.over();
 }
 Snake.prototype.eat = function () {
     game.score ++;
-    var nextPosX = this.head.x + directionNum[this.direction]["x"];
-    var nextPosY = this.head.y + directionNum[this.direction]["y"];
-    var oldHead = new Square(snake.head.x,snake.head.y,'snakeBody');
+    var nextPosX = Math.round(this.head.x/sw) + directionNum[this.direction]["x"];
+    var nextPosY = Math.round(this.head.y/sh) + directionNum[this.direction]["y"];
+    snake.head.classname = "snakeBody"
+    snake.head.viewContent.className = "snakeBody"
     var newNode = new Square(nextPosX,nextPosY,'snakeHead');
-    oldHead.next = snake.head.next;
-    snake.head.next.last = oldHead;
-    snake.head = oldHead;
+    newNode.create();
     snake.head.last = newNode;
     newNode.last = null;
     newNode.next = snake.head;
     snake.head = newNode;
     snake.pos.push([nextPosX,nextPosY])
+    food.remove();
 }
 
 Snake.prototype.move = function () {
-    var nextPosX = this.head.x + directionNum[this.direction]["x"];
-    var nextPosY = this.head.y + directionNum[this.direction]["y"];
-    var oldHead = new Square(snake.head.x,snake.head.y,'snakeBody');
+    var nextPosX = Math.round(this.head.x/sw) + directionNum[this.direction]["x"];
+    var nextPosY = Math.round(this.head.y/sh) + directionNum[this.direction]["y"];
+    snake.head.classname = "snakeBody"
+    snake.head.viewContent.className = "snakeBody"
     var newNode = new Square(nextPosX,nextPosY,'snakeHead');
-    oldHead.next = snake.head.next;
-    snake.head.next.last = oldHead;
-    snake.head = oldHead;
+    newNode.create();
     snake.head.last = newNode;
     newNode.last = null;
     newNode.next = snake.head;
     snake.head = newNode;
     snake.pos.push([nextPosX,nextPosY])
     snake.pos.shift()
+    snake.tail.remove();
     snake.tail = snake.tail.last;
     snake.next = null;
 }
@@ -180,11 +184,19 @@ Game.prototype.start = function () {
         snake.getNextPos();
     },200);
 }
+Game.prototype.over = function () {
+    clearInterval(this.timer);
+    alert('你的得分是:'+this.score)
+}
 snake = new Snake();
 game = new Game();
 var startBtn = document.querySelector('.startBtn')
 startBtn.addEventListener('click', function (e) {
     console.log('开始')
-    startBtn.display = 'none';
+    console.log(startBtn.display)
+    startBtn.style.display = 'none';
     game.init();
 })
+
+// var newnode = new Square(0,0,'snakeHead');
+// newnode.create();
